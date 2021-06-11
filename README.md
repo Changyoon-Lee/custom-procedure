@@ -13,10 +13,11 @@
 6. search query
 
 ## worked procedure
-### CALL connectome.update.load(conn_date)
+
+1. CALL connectome.update.load(conn_date)
 - load log data from csv file (dir: $NEO4J_HOME/import/~~.csv)
 - param 'conn_date' format : "yyyyMMdd" (ex "20210526")
-### CALL connectome.category.modify(from, to, category)
+2. CALL connectome.category.modify(from, to, category)
 - param 'from','to' format : String ip address (ex "192.168.0.1")
 - category : String
 - this procedure changes the node property(category) range from "from" to "to" ip band
