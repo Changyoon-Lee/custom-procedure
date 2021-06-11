@@ -39,9 +39,9 @@ public class LoadData {
 
             try (
                 Result result = tx.execute(String.join("","CALL apoc.periodic.iterate(\"CALL apoc.load.csv('",filename,"' ,{header:TRUE, sep:'\\t', mapping:{sbytes:{type:'float'}, spkts:{type:'int'}, dbytes:{type:'float'}, dpkts:{type:'int'}, dst_port:{type:'int'}, bin:{type:'int'}, duration:{type:'float'}, count:{type:'int'}, pcr:{type:'float'}, prtc:{array:TRUE, arraySep:','}}}) yield map as row\",",
-                        "\"MERGE (a:ip_address{ip:row.src_ip}) ON CREATE SET a.born='",conn_date,"',a.category='tbd'",
+                        "\"MERGE (a:IP_address{ip:row.src_ip}) ON CREATE SET a.born='",conn_date,"',a.category='tbd'",
                         " ON MATCH SET a.recent='",conn_date,
-                        "' MERGE (b:ip_address{ip:row.dst_ip}) ON CREATE SET b.born=",conn_date,", b.category='tbd'",
+                        "' MERGE (b:IP_address{ip:row.dst_ip}) ON CREATE SET b.born=",conn_date,", b.category='tbd'",
                         " ON MATCH SET b.recent='",conn_date,
                         "' MERGE (a)-[c:conn_",conn_date,"{sbytes:row.sbytes, dbytes:row.dbytes, spkts:row.spkts, dpkts:row.dpkts, duration:row.duration, port:row.dst_port, bin:row.bin, cnt:row.count, pcr:row.pcr, prct:row.prtc}]->(b)\", {batchSize:10000, iterateList:TRUE, parallet:FALSE}) YIELD operations RETURN operations"))
                 ) {

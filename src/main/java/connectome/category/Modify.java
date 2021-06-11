@@ -30,8 +30,8 @@ public class Modify {
 
     private static final int TIMEOUT = 1;
 
-    @Procedure(name = "connectome.tbd.category.modify", mode = Mode.WRITE)
-    @Description("CALL connectome.tbd.category.modify(from, to, category)")
+    @Procedure(name = "connectome.category.modify", mode = Mode.WRITE)
+    @Description("CALL connectome.category.modify(from, to, category)")
     public Stream<MapResult> modify(@Name(value = "from", defaultValue = "") String from,
                                     @Name(value = "to", defaultValue = "") String to,
                                     @Name(value = "category", defaultValue = "tbd") String category) {
@@ -41,7 +41,7 @@ public class Modify {
         long toL = convertIP2Long(to);
 
         try (Transaction tx = db.beginTx()) {
-            ResourceIterator<Node> ip_iterator = tx.findNodes(Labels.Ip_address);
+            ResourceIterator<Node> ip_iterator = tx.findNodes(Labels.IP_address);
             if (!ip_iterator.hasNext()) {
                 return Stream.of(IP_NOT_FOUND);
             }
